@@ -167,25 +167,10 @@
 		})
 
 		submitButton.addEventListener("click", function (e) {
-			if (inputElement.value == "") {
-				return
-			}
-			if (xhr != null) {
-				xhr.abort()
-			}
+			possibleResponse = responseSet[Math.floor(Math.random() * 3)]
 
-			xhr = new XMLHttpRequest();
-			xhr.open("POST", apiURL);
-			xhr.setRequestHeader("Content-Type", "application/json");
-			xhr.onreadystatechange = function () {
-				if (xhr.readyState === 4 && xhr.status === 200) {
-					result = JSON.parse(xhr.responseText);
-					resultIdx = result["result"][0] + 512
-					possibleResponse = responseSet[resultIdx]
-					answer.innerHTML = possibleResponse[Math.floor(Math.random() * possibleResponse.length)]
-				}
-			};
-			xhr.send(JSON.stringify({ "context": inputElement.value, "length": 1 }));
+			// this used to call an actual backend i promise, this gives a similar experience
+			answer.innerHTML = possibleResponse[Math.floor(Math.random() * possibleResponse.length)]
 		})
 
 	</script>
